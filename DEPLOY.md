@@ -57,9 +57,20 @@ After deploy succeeds:
 
 | Service | URL |
 |---------|-----|
-| **App (share this)** | `https://truthlens-frontend.onrender.com` |
-| API | `https://truthlens-api.onrender.com` |
-| Health check | `https://truthlens-api.onrender.com/api/health/` |
+| **App (share this)** | Your Render **static site** URL (e.g. `https://truthlens-frontend-xxxx.onrender.com`) |
+| API | Your Render **web service** URL (e.g. `https://truthlens-api-lwta.onrender.com`) |
+| Health check | `{API_URL}/api/health/` |
+
+### Confirm the correct UI is deployed
+
+The real TruthLens UI has **three tabs: Image · Video · Text** and **no “Show history”** button.
+
+1. Open the frontend URL — footer should say **Build 1.1.0**
+2. If you see “Show history” or a different layout, the static site is wrong:
+   - **Root directory** must be `frontend`
+   - **Publish directory** must be `dist`
+   - Set `VITE_API_BASE_URL` = your API URL (no trailing slash)
+   - **Manual Deploy** → Clear build cache & deploy
 
 ---
 
