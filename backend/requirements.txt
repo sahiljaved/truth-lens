@@ -1,0 +1,57 @@
+# ── Core ──────────────────────────────────────────────────────────────────────
+Django==4.2.11
+djangorestframework==3.15.1
+djangorestframework-simplejwt==5.3.1
+
+# ── Database ───────────────────────────────────────────────────────────────────
+psycopg2-binary==2.9.9
+
+# ── Async task queue ───────────────────────────────────────────────────────────
+celery==5.3.6
+redis==5.0.3
+django-celery-results==2.5.1
+
+# ── File handling & validation ─────────────────────────────────────────────────
+Pillow==10.3.0
+python-magic-bin==0.4.14; sys_platform == "win32"
+python-magic==0.4.27; sys_platform != "win32"
+
+# ── OCR ────────────────────────────────────────────────────────────────────────
+pytesseract==0.3.10
+
+# ── Speech-to-text ─────────────────────────────────────────────────────────────
+# Whisper calls ffmpeg via subprocess — install the binary separately:
+#   Windows : https://ffmpeg.org/download.html  (add bin/ folder to PATH)
+#   Linux   : sudo apt install ffmpeg
+#   macOS   : brew install ffmpeg
+openai-whisper==20231117
+
+# NumPy — Whisper dependency.
+# 1.24.x is the LAST series that supports Python 3.8.
+# (1.25+ requires Python 3.9; 1.26+ requires Python 3.9+)
+numpy==1.24.4
+
+# ── HTTP / web-scraping ────────────────────────────────────────────────────────
+requests==2.31.0
+certifi>=2024.2.2
+httpx==0.27.0
+beautifulsoup4==4.12.3
+
+# ── Free news search (no API key required) ─────────────────────────────────────
+# DuckDuckGo news search — used as primary free news source
+duckduckgo-search>=7.0.0
+
+# ── Environment & config ───────────────────────────────────────────────────────
+python-decouple==3.8
+
+# ── CORS ──────────────────────────────────────────────────────────────────────
+django-cors-headers==4.3.1
+
+# ── Production server ───────────────────────────────────────────────────────────
+gunicorn==21.2.0
+whitenoise==6.6.0
+dj-database-url==2.1.0
+
+# NOTE: `uuid` is intentionally omitted — it is part of Python's standard
+# library since Python 2.5. The PyPI `uuid` package is a legacy stub that
+# conflicts with the stdlib module on Python 3.

@@ -1,0 +1,66 @@
+# Render Blueprint — deploy TruthLens (API + frontend + PostgreSQL)
+# Docs: https://render.com/docs/blueprint-spec
+#
+# After connecting this repo on Render:
+#   1. Open the truthlens-api service → Environment
+#   2. Set GNEWS_API_KEY (required for news sources)
+#   3. Redeploy if needed
+
+databases:
+  - name: truthlens-db
+    databaseName: truthlens
+    user: truthlens
+    plan: free
+
+services:
+  - type: web
+    name: truthlens-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/health/
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: truthlens-db
+          property: connectionString
+      - key: ALLOWED_HOSTS
+        value: truthlens-api.onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://truthlens-frontend.onrender.com
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://truthlens-frontend.onrender.com
+      - key: HTTP_SSL_VERIFY
+        value: "true"
+      - key: DB_SSL_REQUIRE
+        value: "false"
+      - key: ENABLE_VIDEO_STT
+        value: "false"
+      - key: GNEWS_API_KEY
+        sync: false
+      - key: GNEWS_MAX_RESULTS
+        value: "5"
+      - key: GNEWS_LANGUAGE
+        value: en
+
+  - type: web
+    name: truthlens-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: truthlens-api
+          envVarKey: RENDER_EXTERNAL_URL
