@@ -8,8 +8,10 @@ from rest_framework_simplejwt.views import (
     TokenBlacklistView,
 )
 from core.health import HealthView
+from core.root import RootView
 
 urlpatterns = [
+    path("", RootView.as_view(), name="root"),
     path("api/health/", HealthView.as_view(), name="health"),
     path("admin/", admin.site.urls),
 
