@@ -8,9 +8,6 @@ export default function Footer() {
         <Typography variant="caption" color="text.secondary" align="center" display="block">
           TruthLens · Misinformation verification · Build {APP_VERSION}
         </Typography>
-        <Typography variant="caption" color="text.disabled" align="center" display="block" sx={{ mt: 0.5 }}>
-          If you see &quot;Show history&quot; or a different layout, the wrong site is deployed — redeploy from the <code>frontend</code> folder.
-        </Typography>
       </Container>
     </Box>
   );

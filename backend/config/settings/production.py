@@ -20,13 +20,29 @@ if _render_host and _render_host not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append(_render_host)
 
 CORS_ALLOWED_ORIGINS = [
-    o.strip()
+    o.strip().rstrip("/")
     for o in config("CORS_ALLOWED_ORIGINS", default="").split(",")
     if o.strip()
 ]
 
+# Allow any Render static-site URL for this project (suffix varies per deploy)
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://truthlens-frontend[-a-z0-9]*\.onrender\.com$",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
 CSRF_TRUSTED_ORIGINS = [
-    o.strip()
+    o.strip().rstrip("/")
     for o in config("CSRF_TRUSTED_ORIGINS", default="").split(",")
     if o.strip()
 ]

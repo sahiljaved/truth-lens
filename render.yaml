@@ -30,11 +30,11 @@ services:
           name: truthlens-db
           property: connectionString
       - key: ALLOWED_HOSTS
-        value: truthlens-api.onrender.com
+        value: truthlens-api-lwta.onrender.com
       - key: CORS_ALLOWED_ORIGINS
-        value: https://truthlens-frontend.onrender.com
+        value: https://truthlens-frontend-thvu.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://truthlens-frontend.onrender.com
+        value: https://truthlens-frontend-thvu.onrender.com
       - key: HTTP_SSL_VERIFY
         value: "true"
       - key: DB_SSL_REQUIRE
